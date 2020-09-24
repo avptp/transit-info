@@ -1,0 +1,16 @@
+# Operating system files
+.DS_Store
+
+# IDEs
+/.idea
+
+# Project
+/build
+/node_modules
+/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
