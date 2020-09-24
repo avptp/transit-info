@@ -1,0 +1,14 @@
+header .datetime {
+  color: #424953;
+  line-height: 1;
+  text-align: right;
+
+  .time {
+    font-size: 6rem;
+    font-weight: bold;
+  }
+
+  .date {
+    font-size: 3.5rem;
+  }
+}
