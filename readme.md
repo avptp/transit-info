@@ -2,6 +2,11 @@
 
 # Transit Info
 
+<div align="center">
+    <img src="/docs/screenshots/1.png" width="45%"/>
+    <img src="/docs/screenshots/2.png" width="45%"/>
+</div>
+
 ## About
 
 Transit Info is a web application made with [React](https://reactjs.org) that displays information related to one or more transport systems, such as schedules, issues and transfers. It is intended to be used in embedded systems, like informational screens at stops and stations.
@@ -20,6 +25,7 @@ The development workflow is based on these practices and principles:
 The project follows the [default Create React App application structure](https://create-react-app.dev/docs/folder-structure/) with the following additions:
 
 * `Dockerfile`, `docker-compose.yml`, and `.dockerignore` have all necessary [Docker](https://www.docker.com) manifests to define the development and runtime environments.
+* `docs` contains documentation resources like specifications or screenshots.
 
 ### License
 
