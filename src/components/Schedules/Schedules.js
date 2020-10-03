@@ -23,8 +23,10 @@ class Schedules extends Component {
   }
 
   fetch() {
+    // Since Metrovalencia API blocks all CORS requests, we need to bypass them, 🙃.
+    // Moreover, this should not be hardcoded and will be generalized in future versions.
     axios
-      .get(`https://cors-anywhere.herokuapp.com/https://www.metrovalencia.es/ap18/api/public/es/api/v1/V/horarios-prevision/${this.props.station.id}`)
+      .get(`http://localhost:8000/https://www.metrovalencia.es/ap18/api/public/es/api/v1/V/horarios-prevision/${this.props.station.id}`)
       .then(({data}) => {
         let arrivals = [];
         data.forEach((line) => {
