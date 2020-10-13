@@ -9,9 +9,9 @@
 
 ## About
 
-Transit Info is a web application made with [React](https://reactjs.org) that displays information related to one or more transport systems, such as schedules, issues and transfers. It is intended to be used in embedded systems, like informational screens at stops and stations.
+Transit Info is an <ins>experimental</ins> web application made with [React](https://reactjs.org) that displays information related to one or more transport systems, such as schedules, issues and transfers. It is intended to be used in embedded systems, like informational screens at stops and stations.
 
-During the early stages of development, only support for [Metrovalencia](https://www.metrovalencia.es) is included. The intention is to generalize the software to include any transport system, even combining several of them simultaneously.
+During the early stages of development, only support for [Metrovalencia](https://www.metrovalencia.es) is included. The intention is to generalize the software to include more transport systems, even combining several of them simultaneously.
 
 ### Practices and principles
 
