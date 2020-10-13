@@ -5,7 +5,9 @@
 }
 
 section.schedules {
+  height: 72vh;
   font-size: 6.5rem;
+  overflow: hidden;
 
   > * {
     display: flex;
@@ -27,6 +29,7 @@ section.schedules {
   }
 
   .header {
+    height: 12vh;
     padding: 2rem 3.5rem;
     background-color: #e51d2d;
     color: white;
@@ -42,10 +45,11 @@ section.schedules {
   }
 
   .arrival {
+    height: 10vh;
     padding: 2rem 3rem;
 
     &:nth-child(odd) {
-      background-color: #fafafa;
+      background-color: #f8f8f8;
     }
 
     .destination {
