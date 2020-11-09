@@ -1,10 +1,10 @@
-<p align="center"><a href="https://avptp.org"><img src="https://avptp.ams3.cdn.digitaloceanspaces.com/brand/imagotype.svg" height="70px"></a></p>
+<p align="center"><a href="https://avptp.org"><img src="https://cdn.avptp.org/brand/imagotype.svg" height="70px"></a></p>
 
 # Transit Info
 
 <div align="center">
-    <img src="/docs/screenshots/1.png" width="45%"/>
-    <img src="/docs/screenshots/2.png" width="45%"/>
+    <img src="docs/screenshots/1.png" width="45%"/>
+    <img src="docs/screenshots/2.png" width="45%"/>
 </div>
 
 ## About
