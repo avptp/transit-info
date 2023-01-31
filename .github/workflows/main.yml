@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        uses: shimataro/ssh-key-action@v2
+        with:
+          name: id_ed25519
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+      - name: Deploy
+        run: |
+          COMMANDS=$(cat << EOF
+          set -euo pipefail
+
+          cd /srv/avptp/transit-info
+
+          git fetch
+          git reset --hard @{u}
+
+          npm ci
+          npm run build
+          EOF
+          )
+
+          ssh caddy@${{ secrets.WEB_HOST }} -p 22001 "${COMMANDS}"
