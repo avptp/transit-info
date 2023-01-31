@@ -19,7 +19,7 @@ The project follows the [default Create React App application structure](https:/
 
 - `.github` holds the [GitHub Actions](https://github.com/features/actions) CI/CD pipelines.
 - `deployments`, `.dockerignore`, `.env.example`, `docker-compose.yml` and `Dockerfile` contain the configuration and manifests that define the development and runtime environments with [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose).
-* `docs` has documentation resources like specifications or screenshots.
+- `docs` has documentation resources like specifications or screenshots.
 
 ### License
 

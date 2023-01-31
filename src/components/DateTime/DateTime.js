@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import './DateTime.scss';
+import React, { Component } from "react";
+import "./DateTime.scss";
 
 class DateTime extends Component {
-
   state = {};
 
   componentDidMount() {
@@ -12,8 +11,8 @@ class DateTime extends Component {
 
     this.dateInterval = setInterval(() => {
       this.setState({
-        lang: this.state.lang === 'ca' ? 'es' : 'ca',
-      })
+        lang: this.state.lang === "ca" ? "es" : "ca",
+      });
     }, 5000);
   }
 
@@ -29,17 +28,28 @@ class DateTime extends Component {
       <div className="datetime">
         <div>
           <div className="time">
-            {date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
-            <small>:{date.getSeconds().toLocaleString([], {minimumIntegerDigits: 2})}</small>
+            {date.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+            <small>
+              :
+              {date
+                .getSeconds()
+                .toLocaleString([], { minimumIntegerDigits: 2 })}
+            </small>
           </div>
           <div className="date">
-            {date.toLocaleDateString(this.state.lang, {weekday: 'long', month: 'long', day: 'numeric'})}
+            {date.toLocaleDateString(this.state.lang, {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            })}
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 export default DateTime;

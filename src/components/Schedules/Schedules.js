@@ -1,13 +1,11 @@
-import {faMale} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import axios from 'axios';
-import Error from 'components/Error/Error';
-import Line from 'components/Line/Line';
-import React, {Component} from 'react';
-import './Schedules.scss'
+import { faMale } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Error from "components/Error/Error";
+import Line from "components/Line/Line";
+import React, { Component } from "react";
+import "./Schedules.scss";
 
 class Schedules extends Component {
-
   state = {};
 
   componentDidMount() {
@@ -25,9 +23,11 @@ class Schedules extends Component {
   fetch() {
     // Since Metrovalencia API blocks all CORS requests, we need to bypass them, 🙃.
     // Moreover, this should not be hardcoded and will be generalized in future versions.
-    axios
-      .get(`http://localhost:8000/https://www.metrovalencia.es/ap18/api/public/es/api/v1/V/horarios-prevision/${this.props.station.id}`)
-      .then(({data}) => {
+    fetch(
+      `http://localhost:8000/ap18/api/public/es/api/v1/V/horarios-prevision/${this.props.station.id}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
         let arrivals = [];
         data.forEach((line) => {
           line.trains.forEach((arrival) => {
@@ -44,9 +44,9 @@ class Schedules extends Component {
           return a.time > b.time ? 1 : -1;
         });
 
-        this.setState({arrivals})
+        this.setState({ arrivals });
       })
-      .catch(() => this.setState({arrivals: []}));
+      .catch(() => this.setState({ arrivals: [] }));
   }
 
   getArrivalTime(total) {
@@ -64,7 +64,11 @@ class Schedules extends Component {
 
     return (
       <>
-        {hours > 0 && <>{hours} <small>h</small> </>}
+        {hours > 0 && (
+          <>
+            {hours} <small>h</small>{" "}
+          </>
+        )}
         {minutes} <small>min</small>
       </>
     );
@@ -72,30 +76,29 @@ class Schedules extends Component {
 
   getOccupancyColor(occupancy) {
     if (occupancy >= 75) {
-      return '#ec5564';
+      return "#ec5564";
     }
 
     if (occupancy >= 50) {
-      return '#ffb75e';
+      return "#ffb75e";
     }
 
-    return '#9ed36a'
+    return "#9ed36a";
   }
 
   render() {
-    const {arrivals} = this.state;
+    const { arrivals } = this.state;
 
     if (!arrivals) {
-      return null;
+      return <></>;
     }
 
     if (!arrivals.length) {
-      return <Error/>;
+      return <Error />;
     }
 
     return (
       <section className="schedules">
-
         <div className="header">
           <div className="destination">
             <div>Destinació</div>
@@ -111,42 +114,43 @@ class Schedules extends Component {
           </div>
         </div>
 
-        {
-          arrivals.map((arrival) => {
-            const occupancyColor = this.getOccupancyColor(arrival.occupancy);
+        {arrivals.map((arrival) => {
+          const occupancyColor = this.getOccupancyColor(arrival.occupancy);
 
-            return (
-              <div key={`${arrival.line}-${arrival.destination}`} className="arrival">
-                <div className="destination">
-                  <Line id={arrival.line}/>
-                  <div>{arrival.destination}</div>
-                </div>
-                <div className="time">
-                  {this.getArrivalTime(arrival.time)}
-                </div>
-                <div className="occupancy">
-                  <div className="visual">
-                    {
-                      [...Array(10).keys()].map((key) => {
-                        const limitKey = Math.round(arrival.occupancy / 10);
+          return (
+            <div
+              key={`${arrival.line}-${arrival.destination}`}
+              className="arrival"
+            >
+              <div className="destination">
+                <Line id={arrival.line} />
+                <div>{arrival.destination}</div>
+              </div>
+              <div className="time">{this.getArrivalTime(arrival.time)}</div>
+              <div className="occupancy">
+                <div className="visual">
+                  {[...Array(10).keys()].map((key) => {
+                    const limitKey = Math.round(arrival.occupancy / 10);
 
-                        return (
-                          <FontAwesomeIcon icon={faMale} color={key < limitKey ? occupancyColor : '#cbd0d8'}/>
-                        );
-                      })
-                    }
-                  </div>
-                  <div className="text">{arrival.occupancy} <small>%</small></div>
+                    return (
+                      <FontAwesomeIcon
+                        key={key}
+                        icon={faMale}
+                        color={key < limitKey ? occupancyColor : "#cbd0d8"}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="text">
+                  {arrival.occupancy} <small>%</small>
                 </div>
               </div>
-            );
-          })
-        }
-
+            </div>
+          );
+        })}
       </section>
     );
   }
-
 }
 
 export default Schedules;

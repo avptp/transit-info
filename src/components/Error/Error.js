@@ -1,15 +1,14 @@
-import {faFlushed} from '@fortawesome/free-regular-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import React, {Component} from 'react';
-import './Error.scss';
+import { faFlushed } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { Component } from "react";
+import "./Error.scss";
 
 class Error extends Component {
-
   render() {
     return (
       <section className="error">
         <div className="icon">
-          <FontAwesomeIcon icon={faFlushed}/>
+          <FontAwesomeIcon icon={faFlushed} />
         </div>
         <div className="title">
           <div>Les estimacions no estan disponibles</div>
@@ -18,7 +17,6 @@ class Error extends Component {
       </section>
     );
   }
-
 }
 
 export default Error;
