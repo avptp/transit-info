@@ -17,29 +17,37 @@
     }
   ],
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.31",
-    "@fortawesome/free-regular-svg-icons": "^5.15.0",
-    "@fortawesome/free-solid-svg-icons": "^5.15.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.20.0",
-    "node-sass": "^4.14.1",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/luxon": "^3.2.0",
+    "@types/node": "^16.18.11",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "luxon": "^3.2.1",
     "normalize.css": "^8.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "typeface-titillium-web": "^0.0.72"
+    "prettier": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.57.1",
+    "typed-local-store": "^2.0.2",
+    "typeface-titillium-web": "^1.1.13",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "npx prettier --write ."
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
