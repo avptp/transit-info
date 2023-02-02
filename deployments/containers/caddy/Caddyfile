@@ -17,15 +17,17 @@
 }
 
 http://:3000 {
-  import cors http://localhost
-
   handle_path /api/* {
-	rewrite * /ap18/api/public/es/api/v1/V{path}
+    import cors http://localhost
 
-	reverse_proxy https://www.metrovalencia.es {
-		header_up Host {upstream_hostport}
-	}
+	  rewrite * /ap18/api/public/es/api/v1/V{path}
+
+    reverse_proxy https://www.metrovalencia.es {
+      header_up Host {upstream_hostport}
+    }
   }
 
-  reverse_proxy app:3000
+  handle {
+    reverse_proxy app:3000
+  }
 }
