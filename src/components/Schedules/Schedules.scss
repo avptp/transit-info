@@ -5,8 +5,11 @@
 }
 
 section.schedules {
-  height: 72vh;
+  max-height: 82vh;
   font-size: 6.5rem;
+
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 
   > * {

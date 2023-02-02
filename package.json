@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "react-spinners-kit": "^1.9.1",
     "sass": "^1.57.1",
     "typed-local-store": "^2.0.2",
     "typeface-titillium-web": "^1.1.13",

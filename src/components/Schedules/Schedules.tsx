@@ -1,6 +1,6 @@
 import { faMale } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Error from "components/Error/Error";
+import Status, { StatusType } from "components/status";
 import Line from "components/Line/Line";
 import { getDepartures } from "data/backend";
 import { useEffect, useState } from "react";
@@ -13,31 +13,28 @@ type Props = {
   station: Station;
 };
 
-function Schedules(props: Props) {
+function Schedules({ station }: Props) {
   const [departures, setDepartures] = useState<Departure[]>();
 
   useEffect(() => {
-    getDepartures(props.station.id).then((departures) =>
-      setDepartures(departures)
-    );
+    const fetch = () => {
+      getDepartures(station.id).then((departures) => setDepartures(departures));
+    };
 
-    const interval = setInterval(() => {
-      getDepartures(props.station.id).then((departures) =>
-        setDepartures(departures)
-      );
-    }, 30000);
+    fetch();
+    const interval = setInterval(fetch, 30000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [props.station]);
+  }, [station]);
 
-  if (!departures) {
-    return <></>;
+  if (departures === undefined) {
+    return <Status full={false} type={StatusType.Loading} />;
   }
 
-  if (!departures.length) {
-    return <Error />;
+  if (departures.length === 0) {
+    return <Status full={false} type={StatusType.Error} />;
   }
 
   return (

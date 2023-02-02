@@ -50,28 +50,24 @@ export async function syncStations() {
 export async function getDepartures(stationId: number): Promise<Departure[]> {
   let departures: Departure[] = [];
 
-  try {
-    const response = await fetch(
-      `${baseUrl}/horarios-prevision/${stationId}`
-    ).then((response) => response.json());
+  const response = await fetch(
+    `${baseUrl}/horarios-prevision/${stationId}`
+  ).then((response) => response.json());
 
-    response.forEach((departure: BackendDeparture) =>
-      departure.trains.forEach((train: BackendTrain) =>
-        departures.push({
-          line: departure.line,
-          destination: train.destino,
-          time: train.seconds,
-          occupancy: train.capacity,
-        })
-      )
-    );
+  response.forEach((departure: BackendDeparture) =>
+    departure.trains.forEach((train: BackendTrain) =>
+      departures.push({
+        line: departure.line,
+        destination: train.destino,
+        time: train.seconds,
+        occupancy: train.capacity,
+      })
+    )
+  );
 
-    departures = departures.sort((a, b) => {
-      return a.time > b.time ? 1 : -1;
-    });
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  departures = departures.sort((a, b) => {
+    return a.time > b.time ? 1 : -1;
+  });
 
-  return Promise.resolve(departures);
+  return departures;
 }

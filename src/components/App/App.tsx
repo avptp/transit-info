@@ -1,6 +1,6 @@
 import { syncStations } from "data/backend";
 import { useEffect, useState } from "react";
-import Error from "components/Error/Error";
+import Status, { StatusType } from "components/status";
 import Header from "components/Header/Header";
 import Schedules from "components/Schedules/Schedules";
 import "typeface-titillium-web";
@@ -9,11 +9,13 @@ import { Station } from "types/station";
 import storage from "data/storage";
 
 function App() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("station");
+  const currentStation = id && parseInt(id);
+
   const [stations, setStations] = useState<Station[] | null>(
     storage.getItem("stations")
   );
-
-  const [currentStation, setCurrentStation] = useState<number | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -22,29 +24,16 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("station");
-
-    if (id !== null) {
-      setCurrentStation(parseInt(id));
-    }
-  }, []);
-
-  if (stations === null) {
-    return <>Cargandito</>;
+  if (!stations) {
+    return <Status full={true} type={StatusType.Loading} />;
   }
 
-  if (currentStation === null) {
-    return <Error />;
-  }
+  const station =
+    currentStation &&
+    stations?.find((station: Station) => station.id === currentStation);
 
-  const station = stations.find(
-    (station: Station) => station.id === currentStation
-  );
-
-  if (station === undefined) {
-    return <Error />;
+  if (!station) {
+    return <Status full={true} type={StatusType.Error} />;
   }
 
   return (
