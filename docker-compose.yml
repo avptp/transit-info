@@ -1,4 +1,11 @@
 services:
+  proxy:
+    image: caddy:2.6.2-alpine
+    volumes:
+      - ./deployments/containers/caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - ${HTTP_PORT:-80}:3000
+
   app:
     build:
       context: .
@@ -7,14 +14,5 @@ services:
         USER_ID: ${USER_ID:-1000}
     volumes:
       - .:/usr/src/app
-    ports:
-      - ${HTTP_PORT:-80}:3000
     hostname: app
     tty: true
-
-  proxy:
-    image: caddy:2.6.2-alpine
-    volumes:
-      - ./deployments/containers/caddy/Caddyfile:/etc/caddy/Caddyfile
-    ports:
-      - ${PROXY_PORT:-8000}:3000
