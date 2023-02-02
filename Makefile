@@ -1,11 +1,13 @@
-# Functions
+# Helpers
 IS_DARWIN := $(filter Darwin,$(shell uname -s))
 
 define set_env
 	sed $(if $(IS_DARWIN),-i "",-i) -e "s/^#*\($(1)=\).*/$(if $(2),,#)\1$(2)/" .env
 endef
 
-# Environment
+EXEC := docker compose exec app
+
+# Environment recipes
 .PHONY: default
 default: init up
 
@@ -24,13 +26,13 @@ down:
 
 .PHONY: shell
 shell:
-	docker compose exec app zsh
+	$(EXEC) zsh
 
-# Project
+# Project recipes
 .PHONY: deps
 run:
-	docker compose exec app npm ci
+	$(EXEC) npm ci
 
 .PHONY: run
 run:
-	docker compose exec app npm run start
+	$(EXEC) npm run start
