@@ -16,15 +16,15 @@ section.schedules {
   }
 
   .destination {
-    flex-basis: 45%;
+    flex-basis: 50%;
   }
 
   .time {
-    flex-basis: 25%;
+    flex-basis: 30%;
   }
 
   .occupancy {
-    flex-basis: 30%;
+    flex-basis: 20%;
   }
 
   .header {
@@ -76,14 +76,8 @@ section.schedules {
 
     .occupancy {
       display: flex;
-      .visual {
-        > * {
-          margin: 0 0.4rem;
-        }
-      }
-
-      .text {
-        padding: 0 3rem;
+      > * {
+        margin: 0 0.4rem;
       }
     }
   }

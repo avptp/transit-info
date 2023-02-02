@@ -6,6 +6,7 @@ import { getDepartures } from "data/backend";
 import { useEffect, useState } from "react";
 import { Departure } from "types/departure";
 import { Station } from "types/station";
+import { getOccupancyType, occupancyColor, OccupancyType } from "./occupancy";
 import "./Schedules.scss";
 
 type Props = {
@@ -16,10 +17,14 @@ function Schedules(props: Props) {
   const [departures, setDepartures] = useState<Departure[]>();
 
   useEffect(() => {
-    getDepartures(props.station.id).then((departures) => setDepartures(departures));
+    getDepartures(props.station.id).then((departures) =>
+      setDepartures(departures)
+    );
 
     const interval = setInterval(() => {
-      getDepartures(props.station.id).then((departures) => setDepartures(departures));
+      getDepartures(props.station.id).then((departures) =>
+        setDepartures(departures)
+      );
     }, 30000);
 
     return () => {
@@ -53,11 +58,11 @@ function Schedules(props: Props) {
       </div>
 
       {departures.map((departure) => {
-        const occupancyColor = getOccupancyColor(departure.occupancy);
+        const occupancy = getOccupancyType(departure.occupancy);
 
         return (
           <div
-            key={`${departure.line}-${departure.destination}`}
+            key={`${departure.line}-${departure.destination}-${departure.time}`}
             className="departure"
           >
             <div className="destination">
@@ -66,22 +71,20 @@ function Schedules(props: Props) {
             </div>
             <div className="time">{getDepartureTime(departure.time)}</div>
             <div className="occupancy">
-              <div className="visual">
-                {[...Array(10).keys()].map((key) => {
-                  const limitKey = Math.round(departure.occupancy / 10);
-
+              {occupancy === OccupancyType.Unknown ||
+                [...Array(3).keys()].map((key) => {
                   return (
                     <FontAwesomeIcon
                       key={key}
                       icon={faMale}
-                      color={key < limitKey ? occupancyColor : "#cbd0d8"}
+                      color={
+                        key < occupancy
+                          ? occupancyColor.get(occupancy)
+                          : "#cbd0d8"
+                      }
                     />
                   );
                 })}
-              </div>
-              <div className="text">
-                {departure.occupancy} <small>%</small>
-              </div>
             </div>
           </div>
         );
@@ -113,18 +116,6 @@ function getDepartureTime(total: number) {
       {minutes} <small>min</small>
     </>
   );
-}
-
-function getOccupancyColor(occupancy: number) {
-  if (occupancy >= 75) {
-    return "#ec5564";
-  }
-
-  if (occupancy >= 50) {
-    return "#ffb75e";
-  }
-
-  return "#9ed36a";
 }
 
 export default Schedules;
