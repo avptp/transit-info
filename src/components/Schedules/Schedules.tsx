@@ -2,9 +2,9 @@ import { faMale } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Error from "components/Error/Error";
 import Line from "components/Line/Line";
-import { getArrivals } from "data/backend";
+import { getDepartures } from "data/backend";
 import { useEffect, useState } from "react";
-import { Arrival } from "types/arrival";
+import { Departure } from "types/departure";
 import { Station } from "types/station";
 import "./Schedules.scss";
 
@@ -13,13 +13,13 @@ type Props = {
 };
 
 function Schedules(props: Props) {
-  const [arrivals, setArrivals] = useState<Arrival[]>();
+  const [departures, setDepartures] = useState<Departure[]>();
 
   useEffect(() => {
-    getArrivals(props.station.id).then((arrivals) => setArrivals(arrivals));
+    getDepartures(props.station.id).then((departures) => setDepartures(departures));
 
     const interval = setInterval(() => {
-      getArrivals(props.station.id).then((arrivals) => setArrivals(arrivals));
+      getDepartures(props.station.id).then((departures) => setDepartures(departures));
     }, 30000);
 
     return () => {
@@ -27,11 +27,11 @@ function Schedules(props: Props) {
     };
   }, [props.station]);
 
-  if (!arrivals) {
+  if (!departures) {
     return <></>;
   }
 
-  if (!arrivals.length) {
+  if (!departures.length) {
     return <Error />;
   }
 
@@ -52,23 +52,23 @@ function Schedules(props: Props) {
         </div>
       </div>
 
-      {arrivals.map((arrival) => {
-        const occupancyColor = getOccupancyColor(arrival.occupancy);
+      {departures.map((departure) => {
+        const occupancyColor = getOccupancyColor(departure.occupancy);
 
         return (
           <div
-            key={`${arrival.line}-${arrival.destination}`}
-            className="arrival"
+            key={`${departure.line}-${departure.destination}`}
+            className="departure"
           >
             <div className="destination">
-              <Line id={arrival.line} />
-              <div>{arrival.destination}</div>
+              <Line id={departure.line} />
+              <div>{departure.destination}</div>
             </div>
-            <div className="time">{getArrivalTime(arrival.time)}</div>
+            <div className="time">{getDepartureTime(departure.time)}</div>
             <div className="occupancy">
               <div className="visual">
                 {[...Array(10).keys()].map((key) => {
-                  const limitKey = Math.round(arrival.occupancy / 10);
+                  const limitKey = Math.round(departure.occupancy / 10);
 
                   return (
                     <FontAwesomeIcon
@@ -80,7 +80,7 @@ function Schedules(props: Props) {
                 })}
               </div>
               <div className="text">
-                {arrival.occupancy} <small>%</small>
+                {departure.occupancy} <small>%</small>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ function Schedules(props: Props) {
   );
 }
 
-function getArrivalTime(total: number) {
+function getDepartureTime(total: number) {
   var hours = Math.floor(total / 3600);
   var minutes = Math.floor((total % 3600) / 60);
 

@@ -1,6 +1,6 @@
 import { BackendTrain } from "./train";
 
-export declare type BackendArrival = {
+export declare type BackendDeparture = {
   line_id: number;
   line: number;
   trains: BackendTrain[];

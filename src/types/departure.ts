@@ -1,4 +1,4 @@
-export declare type Arrival = {
+export declare type Departure = {
   line: number;
   destination: string;
   time: number;
