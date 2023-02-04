@@ -30,7 +30,7 @@ shell:
 
 # Project recipes
 .PHONY: deps
-run:
+deps:
 	$(EXEC) npm ci
 
 .PHONY: run
